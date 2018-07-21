@@ -1,0 +1,11 @@
+Host ba1
+Hostname BloodyAwesome1.local
+Port 22
+
+Host ba2
+Hostname BloodyAwesome2.local
+Port 22
+
+Host nas
+Hostname bloodynas.local
+Port 22
