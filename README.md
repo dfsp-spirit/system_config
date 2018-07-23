@@ -3,7 +3,7 @@ My system configuration (bash_profile, bashrc, vimrc, ...) including my setup fo
 
 ## About
 
-These are my personal config files to setup my environment in the bash shell under Linux and MacOS. They include the setup for neuroimaging software like FreeSurfer, FSL, and PALM. This setup doesn't do any magic:
+These are my personal config files to setup my environment in the bash shell under Linux and MacOS. Whenever I use or install a new machine, or get a user account on some new server, I grab this from here. They include the setup for neuroimaging software like FreeSurfer and FSL. This setup doesn't do any magic:
 
 * configure the shell prompt to `user@host: workdir`
 * add stuff the the `$PATH` environment variable, including general stuff like `~/bin/` but also my neuroimaging software installations (it won't hurt if you don't have them, it checks for them first).
@@ -25,6 +25,7 @@ It is very likely that you will at least have to adapt the installation paths of
 * FSL (FMRIB Software Library, see https://fsl.fmrib.ox.ac.uk/fsl/)
 * FreeSurfer (see https://surfer.nmr.mgh.harvard.edu/)
 * PALM (Permutation Analysis of Linear Models, see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/PALM)
+* Anaconda2 (see https://anaconda.org/anaconda/python)
 
 As you may have installed to a different location, you have to adapt the paths.
 
