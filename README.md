@@ -1,5 +1,5 @@
 # system_config
-My system configuration (bash_profile, bashrc, vimrc, ...) including my setup for popular neuroimaging software. I use the `bash` shell.
+My system configuration (bash_profile, bashrc, vimrc, ...) including my setup for popular neuroimaging software. I use the `bash` shell under both GNU/Linux and MacOS, and I do my best to keep this setup consistent between these two operating systems.
 
 ## About
 
