@@ -35,6 +35,13 @@ So what you should do is:
 2) Make a backup of your current config files.
 3) Run the install script from within its directory: `./install_sysconfig.bash`
 
+If you only want a minimum setup, you can omit step 3 and copy the files you want manually. To use only my basic bash shell setup (and not the vim and ssh config files, etc), do:
+
+```bash
+   cp bash_profile ~/.bash_profile
+   cp bashrc ~/.bashrc
+```
+
 
 ## Recommended usage
 
