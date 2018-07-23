@@ -14,6 +14,12 @@ These are my personal config files to setup my environment in the bash shell und
 
 This setup is not *really* intended to be used by anybody else, but please feel free to do so.
 
+The neuroimaging software that I check for:
+* FSL (FMRIB Software Library, see https://fsl.fmrib.ox.ac.uk/fsl/)
+* FreeSurfer (see https://surfer.nmr.mgh.harvard.edu/)
+* PALM (Permutation Analysis of Linear Models, see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/PALM)
+* Anaconda2 (for PySurfer etc, see https://anaconda.org/anaconda/python)
+
 
 ## Usage
 
@@ -21,13 +27,7 @@ This is a collection of system configuration files and a script, `install_syscon
 
 WARNING: The script overwrites your current files and does NOT make a backup (this repo is my backup).
 
-It is very likely that you will at least have to adapt the installation paths of your neuroimaging software in the `bash_profile` file. I check for my installation paths (and defaults, if available) of the following software in there:
-* FSL (FMRIB Software Library, see https://fsl.fmrib.ox.ac.uk/fsl/)
-* FreeSurfer (see https://surfer.nmr.mgh.harvard.edu/)
-* PALM (Permutation Analysis of Linear Models, see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/PALM)
-* Anaconda2 (see https://anaconda.org/anaconda/python)
-
-As you may have installed to a different location, you have to adapt the paths.
+It is very likely that you will at least have to adapt the installation paths of your neuroimaging software in the `bash_profile` file. I check for my installation paths and defaults if available, but as you may have installed to a different location, you have to adapt the paths.
 
 So what you should do is:
 1) Download/clone the repo and have a look at the files (especially the paths in `bash_profile`) and adapt stuff to your needs.
