@@ -33,7 +33,7 @@ So what you should do is:
 1) Download/clone the repo and have a look at the files (especially the paths in `bash_profile`) and adapt stuff to your needs.
     * To download, click the green `Clone or download` button near the top of this page, then click `Download ZIP`.
 2) Make a backup of your current config files.
-3) run the `install_sysconfig.bash` script from within its directory
+3) Run the install script from within its directory: `./install_sysconfig.bash`
 
 
 ## Recommended usage
