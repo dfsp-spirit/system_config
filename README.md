@@ -29,7 +29,7 @@ It is very likely that you will at least have to adapt the installation paths of
 As you may have installed to a different location, you have to adapt the paths.
 
 So what you should do is:
-1) Download/clone the repo and have a look at the files (especially the paths in `bash_proile`) and adapt stuff to your needs.
+1) Download/clone the repo and have a look at the files (especially the paths in `bash_profile`) and adapt stuff to your needs.
 2) Make a backup of your current config files.
 3) run the `install_sysconfig.bash` script from within its directory
 
