@@ -46,3 +46,10 @@ If you only want a minimum setup, you can omit step 3 and copy the files you wan
 ## Recommended usage
 
 If you use Github, I would recommend forking this repo and using/maintaining/updating your own copy in the future.
+
+## External tools
+
+This repo contains some external tools created by others and software which does NOT fall under the license of the repo.
+
+* `tools/solarized/solarized.vim`: solarized colour scheme for the vim editor, see https://github.com/altercation/vim-colors-solarized
+* `bin/obj2surf` and `bin/surf2obj`: shell scripts by [Anderson M. Winkler](https://brainder.org/) to convert surface files (meshes) between the obj and FreeSurfer ASCII formats
