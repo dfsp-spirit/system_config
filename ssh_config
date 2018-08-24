@@ -1,3 +1,6 @@
+Host *
+ServerAliveInterval 240
+
 Host ba1
 Hostname BloodyAwesome1.local
 Port 22
@@ -9,3 +12,8 @@ Port 22
 Host nas
 Hostname bloodynas.local
 Port 22
+
+Host li
+Hostname lcluster1.hrz.tu-darmstadt.de
+Port 22
+
