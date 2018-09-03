@@ -29,12 +29,17 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
 export PATH="$PATH:~/bin"
 
 
-### set a useful shell prompt (displays '<user>@<host>:<workdir> $' in front of the command line):
+### Set a useful shell prompt (displays '<user>@<host>:<workdir> $' in front of the command line):
 export PS1="[\\u@\\h:\\w] $ "
+
+### A custom directory into which you commonly install software, and which should be searched for software.
+### This is typically in your HOME, but on a cluster, it could be a shared directory which contains software.
+MY_SOFTWARE_DIR="${HOME}/software"                        # private software in your home
+#MY_SOFTWARE_DIR="/work/projects/Project00828/software"    # shared software dir on cluster
 
 ### Set environment for FreeSurfer neuro imaging software
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    MY_FREESURFER_DIR="${HOME}/software/freesurfer"
+    MY_FREESURFER_DIR="${MY_SOFTWARE_DIR}/freesurfer"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     MY_FREESURFER_DIR="/Applications/freesurfer"
 fi
@@ -44,22 +49,39 @@ if [ -d "$MY_FREESURFER_DIR" ]; then
     source $FREESURFER_HOME/SetUpFreeSurfer.sh
 fi
 
+MY_FS_QA_TOOLS_DIR="${MY_SOFTWARE_DIR}/QAtools_v1.2"
+if [ -d "$FS_QA_TOOLS_DIR" ]; then
+    export QA_TOOLS="$MY_FS_QA_TOOLS_DIR"
+fi
+
 ### Add PALM to path if it is installed
-MY_PALM_DIR="${HOME}/software/palm-alpha111"
+MY_PALM_DIR="${MY_SOFTWARE_DIR}/palm-alpha111"
 if [ -d "$MY_PALM_DIR" ]; then
     export PATH="${PATH}:${MY_PALM_DIR}"
 fi
 
-# Set environment for FSL
+### Set environment for FSL
 FSLDIR="/usr/local/fsl"
+ALTERNATIVE_FSLDIR="${MY_SOFTWARE_DIR}/fsl"
 if [ -d "$FSLDIR" ]; then
+    . ${FSLDIR}/etc/fslconf/fsl.sh
+    PATH=${FSLDIR}/bin:${PATH}
+    export FSLDIR PATH
+elif [ -d "$ALTERNATIVE_FSLDIR" ]; then
+    FSLDIR="$ALTERNATIVE_FSLDIR"
     . ${FSLDIR}/etc/fslconf/fsl.sh
     PATH=${FSLDIR}/bin:${PATH}
     export FSLDIR PATH
 fi
 
-# Check for conda (a package manager and environment management system for Python, only needed for nipy / PySurfer).
+### Check for conda (a package manager and environment management system for Python, only needed for nipy / PySurfer).
 CONDA_DIR="${HOME}/anaconda2/bin"
 if [ -d "$CONDA_DIR" ]; then
     export PATH="${PATH}:${CONDA_DIR}"
 fi
+
+### Locale settings. Activate these (remove comments) if your system does not set these correctly by default.
+### (This is the case on some cluster computers we use.)
+#export LANG=en_US.utf8
+#export LC_CTYPE=en_US.utf8
+#export LC_ALL=en_US.utf8
