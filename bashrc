@@ -78,13 +78,20 @@ fi
 ### Note that the following command does NOT activate conda: you still use your system python by default. You still have to run 'conda activate' to start conda.
 CONDA_DIR="${HOME}/anaconda2"
 CONDA_BIN_DIR="${CONDA_DIR}/bin"
-if [ -d "$CONDA_BIN_DIR" ]; then
+if [ -d "${CONDA_BIN_DIR}" ]; then
     #export PATH="${PATH}:${CONDA_BIN_DIR}"     # This was how it was done before conda 4.4, and this DID automatically activated conda, which is why I did NOT want it.
     source ${CONDA_DIR}/etc/profile.d/conda.sh  # This is the new way since 4.4, thid will NOT activate the base conda environment. Run 'conda activate' explicitely to do that.
-    
+
     if [[ "$OSTYPE" == "darwin"* ]]; then
         conda activate              # activate conda by default under MacOS. Their system python is more or less unusable, so I prefer conda in this case.
     fi
+fi
+
+### Add the matlab binary location to your path. This is required for some FreeSurfer tools that rely on Matlab.
+MATLAB_INSTALL_DIR="/Applications/MATLAB_R2018a.app"
+if [ -d "${MATLAB_INSTALL_DIR}" ]; then
+    export MATLABPATH=${MATLAB_INSTALL_DIR}
+    PATH="${PATH}:${MATLABPATH}/bin"
 fi
 
 ### Locale settings. Activate these (remove comments) if your system does not set these correctly by default.
