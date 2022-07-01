@@ -10,6 +10,7 @@ alias la="ls -a"       # includes hidden dot files
 alias ll="ls -l"       # display details
 alias lt="ls -ltr"     # sort by modification date, inverse (good for looking at your downloads dir: finds last files you downloaded)
 alias h="history"
+alias ipy="ipython"    # seriously.
 alias d="date"
 alias grep="grep --color"
 
