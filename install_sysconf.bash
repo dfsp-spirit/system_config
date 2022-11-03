@@ -13,6 +13,7 @@ cp -r bin/* ~/bin/
 
 cp ./bash_profile ~/.bash_profile
 cp ./bashrc ~/.bashrc
+cp ./condarc ~/.condarc
 
 # vim setup
 if [ ! -d ~/.vim/colors ]; then
