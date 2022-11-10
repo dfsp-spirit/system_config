@@ -95,6 +95,11 @@ if [ -d "${MATLAB_INSTALL_DIR}" ]; then
     PATH="${PATH}:${MATLABPATH}/bin"
 fi
 
+if [ -f "/etc/bash_completion" ]; then
+  source "/etc/bash_completion"
+fi
+
+
 ### Locale settings. Activate these (remove comments) if your system does not set these correctly by default.
 ### (This is the case on some cluster computers we use.)
 #export LANG=en_US.utf8
