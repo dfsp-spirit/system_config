@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#
+# Copy subset of Photos from Huawei Phone, based on Tim's style of photo list.
 
 import os
 import argparse
@@ -87,7 +89,7 @@ def photocp():
             if verbose:
                 print(f"    Photo pattern '{pi}' matches {len(hits)} files: {hits}")
         else:
-            print(f"    WARNING: Photo pattern '{pi}' on line {pi_line} matches {len(hits)} files: {hits}")
+            print(f"    WARNING: Photo pattern '{pi}' on line {pi_line+1} matches {len(hits)} files: {hits}")
             num_ambiguous += 1
 
     print(f"Checked {num_ambiguous + num_unique} photo entries: {num_ambiguous} ambiguous, {num_unique} unique.")
