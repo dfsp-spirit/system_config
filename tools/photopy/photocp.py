@@ -47,6 +47,15 @@ def photocp():
 
     num_unique = 0
     num_ambiguous = 0
+
+    # Check for extra suffix photos. Note: the actual skipping happens in the 2nd loop below.
+    num_photos_samesec = 0
+    for img in img_files:
+        if img.endswith(f"_1.{extension}") or img.endswith(f"_2.{extension}") or img.endswith(f"_3.{extension}"):
+            num_photos_samesec += 1
+            if verbose:
+                print(f"   NOTICE: Skipping image file '{img}' with special suffix, please rename if you need it. Several photos taken in same second not supported yet.")
+
     for pi_line, pi in enumerate(photo_infos):
         if verbose:
                 print(f" * Handling photo file entry '{pi}'.")
@@ -68,6 +77,8 @@ def photocp():
                 print(f"   - Checking non-inherited pattern '{pattern}' from photo file entry '{pi}'.")
         hits = []
         for img in img_files:
+            if img.endswith(f"_1.{extension}") or img.endswith(f"_2.{extension}") or img.endswith(f"_3.{extension}"):
+                continue
             if pattern in img:
                 hits.append(img)
 
@@ -80,6 +91,8 @@ def photocp():
             num_ambiguous += 1
 
     print(f"Checked {num_ambiguous + num_unique} photo entries: {num_ambiguous} ambiguous, {num_unique} unique.")
+    if num_photos_samesec > 0:
+        print(f"NOTICE: Skipped {num_photos_samesec} photos with extra suffices like '_1' (taken in same second as another photo).")
 
 
 
