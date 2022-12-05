@@ -6,6 +6,7 @@ import os
 import argparse
 import glob
 import sys
+import shutil
 
 def photocp():
     parser = argparse.ArgumentParser(description="Copy photos.")
@@ -14,6 +15,7 @@ def photocp():
     parser.add_argument("-p", "--photos", help="Readable text file containing one photo per line.", default="photos.txt")
     parser.add_argument("-a", "--inherit", help="Whether to inherit blank photo characters from ancestor.", action="store_true")
     parser.add_argument("-v", "--verbose", help="Increase output verbosity.", action="store_true")
+    parser.add_argument("-c", "--copy", help="Do actually copy, instead of only printing what would be done.", action="store_true")
     args = parser.parse_args()
 
     indir = args.indir
@@ -56,7 +58,7 @@ def photocp():
         if img.endswith(f"_1.{extension}") or img.endswith(f"_2.{extension}") or img.endswith(f"_3.{extension}"):
             num_photos_samesec += 1
             if verbose:
-                print(f"   NOTICE: Skipping image file '{img}' with special suffix, please rename if you need it. Several photos taken in same second not supported yet.")
+                print(f"   NOTICE: Willl skip image file '{img}' with special suffix, please rename if you need it. Several photos taken in same second not supported yet.")
 
     for pi_line, pi in enumerate(photo_infos):
         if verbose:
@@ -83,6 +85,9 @@ def photocp():
                 continue
             if pattern in img:
                 hits.append(img)
+                if args.copy:
+                    shutil.copy(img, outdir)
+
 
         if len(hits) == 1:
             num_unique += 1
@@ -95,6 +100,8 @@ def photocp():
     print(f"Checked {num_ambiguous + num_unique} photo entries: {num_ambiguous} ambiguous, {num_unique} unique.")
     if num_photos_samesec > 0:
         print(f"NOTICE: Skipped {num_photos_samesec} photos with extra suffices like '_1' (taken in same second as another photo).")
+    if args.copy:
+        print(f"Copied files to output dir '{outdir}'.")
 
 
 
