@@ -46,26 +46,29 @@ def photocp():
         template = photo_infos[0]
 
     for pi in photo_infos:
+        if verbose:
+                print(f" * Handling photo file entry '{pi}'.")
         if inherit:
-            if len(pi.strip()) >= template:
-                template = pi
-                pattern = pi
-            else:
-                pattern = template
-                for char_idx, char in enumerate(pi):
-                    if char != " ":
-                        pattern[char_idx] = char
+            if(len(template) < len(pi)):
+                raise ValueError(f"Current template '{template}' is shorter than new photo info entry '{pi}', which must not happen.")
+            pattern = list(template)
+
+            for char_idx, char in enumerate(pi):
+                if char != " ":
+                    pattern[char_idx] = char
+            pattern = "".join(pattern)  # Turn char list back into str.
+            template = pattern
             if verbose:
-                print(f" - Checking inherited pattern '{pattern}' from photo file entry '{pi}'.")
+                print(f"   - Checking inherited pattern '{pattern}' from photo file entry '{pi}'.")
         else:
             pattern = pi.strip()
             if verbose:
-                print(f" - Checking non-inherited pattern '{pattern}' from photo file entry '{pi}'.")
+                print(f"   - Checking non-inherited pattern '{pattern}' from photo file entry '{pi}'.")
         hits = []
         for img in img_files:
             if pattern in img:
                 hits.append(img)
-        print(f"Photo pattern '{pi}' matches {len(hits)} files: {hits}")
+        print(f"    Photo pattern '{pi}' matches {len(hits)} files: {hits}")
 
 
 
