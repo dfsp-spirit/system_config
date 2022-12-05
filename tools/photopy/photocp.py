@@ -45,7 +45,9 @@ def photocp():
     if inherit:
         template = photo_infos[0]
 
-    for pi in photo_infos:
+    num_unique = 0
+    num_ambiguous = 0
+    for pi_line, pi in enumerate(photo_infos):
         if verbose:
                 print(f" * Handling photo file entry '{pi}'.")
         if inherit:
@@ -68,7 +70,18 @@ def photocp():
         for img in img_files:
             if pattern in img:
                 hits.append(img)
-        print(f"    Photo pattern '{pi}' matches {len(hits)} files: {hits}")
+
+        if len(hits) == 1:
+            num_unique += 1
+            if verbose:
+                print(f"    Photo pattern '{pi}' matches {len(hits)} files: {hits}")
+        else:
+            print(f"    WARNING: Photo pattern '{pi}' on line {pi_line} matches {len(hits)} files: {hits}")
+            num_ambiguous += 1
+
+    print(f"Checked {num_ambiguous + num_unique} photo entries: {num_ambiguous} ambiguous, {num_unique} unique.")
+
+
 
 
 
