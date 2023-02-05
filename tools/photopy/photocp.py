@@ -11,7 +11,7 @@ import shutil
 def photocp():
     parser = argparse.ArgumentParser(description="Copy photos.")
     parser.add_argument("-i", "--indir", help="The input dir, must exist and be readble.", default=os.getcwd())
-    parser.add_argument("-o", "--outdir", help="Thr output dir. Must exist and be writable", default=os.path.join(os.getcwd(), "out"))
+    parser.add_argument("-o", "--outdir", help="The output dir. Must exist and be writable", default=os.path.join(os.getcwd(), "out"))
     parser.add_argument("-p", "--photos", help="Readable text file containing one photo per line.", default="photos.txt")
     parser.add_argument("-a", "--inherit", help="Whether to inherit blank photo characters from ancestor.", action="store_true")
     parser.add_argument("-v", "--verbose", help="Increase output verbosity.", action="store_true")
