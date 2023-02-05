@@ -8,6 +8,7 @@ import argparse
 import glob
 import sys
 import shutil
+import re
 
 def gengal():
     parser = argparse.ArgumentParser(description="Generate gallery HTML.")
@@ -48,8 +49,20 @@ def gengal():
 
 
     out_str = ""
+    pattern = re.compile(r"\d{2,4}x\d{2,4}.jpg")
+    num_files_used = 0
+    num_thumbnails_ign = 0
     for img in img_files:
-        out_str += gen_file_html(img, photo_caps, force_path=forcepath)
+        if not bool(re.search(pattern, img)): # Ignore the thumbnails, which end with something like '320x480.jpg' or '1024x768.jpg'.
+            if verbose:
+                    print(f"Using full img file '{img}'.")
+            num_files_used += 1
+            out_str += gen_file_html(img, photo_caps, force_path=forcepath)
+        else:
+            if verbose:
+                print(f"Ignoring thumbnail '{img}'.")
+            num_thumbnails_ign += 1
+    print(f"Used {num_files_used} full image file, ignored {num_thumbnails_ign} thumbnails.")
 
     with open(outfile, 'w') as f:
         f.write(out_str)
