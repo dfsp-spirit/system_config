@@ -30,6 +30,9 @@ def gengal():
     outfile = os.path.join(outdir, "gallery.html")
     forcepath = args.forcepath
 
+    imglink_thumb_match="-640x360.jpg" # Filename suffix of thumbnail for image links. Set to None if you dont want thumb links.
+                                       # If not none and an image has no thumbnail matching this, it will be ignored completely.
+
     if not os.path.isdir(indir):
         raise ValueError(f"Directory indir '{indir}' cannot be read.")
     if not os.path.isdir(outdir):
@@ -60,7 +63,15 @@ def gengal():
             if verbose:
                     print(f"Using full img file '{img}'.")
             num_files_used += 1
-            out_str += gen_file_html(img, photo_caps, force_path=forcepath)
+            thumbnail = None
+            if imglink_thumb_match is not None:
+                img_no_ext = os.path.splitext(img)[0]
+                expected_thumbnail_file = f"{img_no_ext + imglink_thumb_match}"
+                if os.path.isfile(expected_thumbnail_file):
+                    thumbnail = expected_thumbnail_file
+                else:
+                    print(f"No thumbnail with ending '{imglink_thumb_match}' found for full image file {img} (checked for '{expected_thumbnail_file}').")
+            out_str += gen_file_html(img, photo_caps, force_path=forcepath, thumbnail=thumbnail)
         else:
             if verbose:
                 print(f"Ignoring thumbnail '{img}'.")
@@ -93,9 +104,11 @@ def parse_caps_file(capsfile):
 
 
 
-def gen_file_html(photo_file_rel, caps, use_figcaption=False, force_path=None):
+def gen_file_html(photo_file_rel, caps, use_figcaption=False, force_path=None, thumbnail=None):
     """
     Generate HTML representation string for single photo file.
+
+    Note: use_figcation is ignored if a thumbnail is given.
     """
     photo_filename = os.path.basename(photo_file_rel)
     cap = caps.get(photo_filename, "")
@@ -105,9 +118,22 @@ def gen_file_html(photo_file_rel, caps, use_figcaption=False, force_path=None):
     else:
         photo_path = os.path.join(force_path, photo_filename)
 
-    rep = f'<img src="{photo_path}", alt="{cap}"/>"\n'
-    if use_figcaption and len(cap) > 0:
-        rep += f"<figcaption>{cap}</figcaption>\n"
+    if thumbnail is not None:
+        if force_path is None:
+            thumbnail_path = thumbnail
+        else:
+            thumbnail_filename = os.path.basename(thumbnail)
+            thumbnail_path = os.path.join(force_path, thumbnail_filename)
+
+    rep = ""
+    if thumbnail is not None:
+        rep += f'<a target="blank_" href="{photo_path}">'
+        rep += f'<img src="{thumbnail_path}", alt="{cap}"/>"'
+        rep += '</a>\n'
+    else:
+        rep += f'<img src="{photo_path}", alt="{cap}"/>"\n'
+        if use_figcaption and len(cap) > 0:
+            rep += f"<figcaption>{cap}</figcaption>\n"
     return rep
 
 
