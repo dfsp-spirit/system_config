@@ -2,6 +2,9 @@
 #
 # Create simple HTML chunk that lists all photos in current dir.
 # Used to create a simple web gallery from a folder.
+#
+# WARNING: This script makes assumptions about naming of the thumbnail images, you will have to adapt the code
+#          if yours are neamed differently. See regex in 'thumbnail_pattern' below.
 
 import os
 import argparse
@@ -49,11 +52,11 @@ def gengal():
 
 
     out_str = ""
-    pattern = re.compile(r"\d{2,4}x\d{2,4}.jpg")
+    thumbnail_pattern = re.compile(r"\d{2,4}x\d{2,4}.jpg")
     num_files_used = 0
     num_thumbnails_ign = 0
     for img in img_files:
-        if not bool(re.search(pattern, img)): # Ignore the thumbnails, which end with something like '320x480.jpg' or '1024x768.jpg'.
+        if not bool(re.search(thumbnail_pattern, img)): # Ignore the thumbnails, which end with something like '320x480.jpg' or '1024x768.jpg'.
             if verbose:
                     print(f"Using full img file '{img}'.")
             num_files_used += 1
