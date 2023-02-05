@@ -47,7 +47,7 @@ def gengal():
 
     out_str = ""
     for img in img_files:
-        out_str += gen_file_html(img, caps)
+        out_str += gen_file_html(img, photo_caps)
 
     with open(outfile, 'w') as f:
         f.write(out_str)
