@@ -14,6 +14,7 @@ def gengal():
     parser.add_argument("-i", "--indir", help="The input dir containing the photos, must exist and be readable.", default=os.path.join(os.getcwd(), "photos"))
     parser.add_argument("-o", "--outdir", help="The output dir to write the HTML file to. Must exist and be writable.", default=os.getcwd())
     parser.add_argument("-p", "--photocaps", help="Readable text file containing one photo caption per line. No captions are assumed if it does not exist.", default="photos_captions.txt")
+    parser.add_argument("-f", "--forcepath", help="Force a path prefix for photos.", default=None)
     parser.add_argument("-v", "--verbose", help="Increase output verbosity.", action="store_true")
     args = parser.parse_args()
 
@@ -23,6 +24,7 @@ def gengal():
     verbose = args.verbose
     extension = "jpg"
     outfile = os.path.join(outdir, "gallery.html")
+    forcepath = args.forcepath
 
     if not os.path.isdir(indir):
         raise ValueError(f"Directory indir '{indir}' cannot be read.")
@@ -47,7 +49,7 @@ def gengal():
 
     out_str = ""
     for img in img_files:
-        out_str += gen_file_html(img, photo_caps)
+        out_str += gen_file_html(img, photo_caps, force_path=forcepath)
 
     with open(outfile, 'w') as f:
         f.write(out_str)
@@ -75,14 +77,19 @@ def parse_caps_file(capsfile):
 
 
 
-def gen_file_html(photo_file_rel, caps, use_figcaption=False):
+def gen_file_html(photo_file_rel, caps, use_figcaption=False, force_path=None):
     """
     Generate HTML representation string for single photo file.
     """
     photo_filename = os.path.basename(photo_file_rel)
     cap = caps.get(photo_filename, "")
 
-    rep = f'<img src="{photo_file_rel}", alt="{cap}"/>"\n'
+    if force_path is None:
+        photo_path = photo_file_rel
+    else:
+        photo_path = os.path.join(force_path, photo_filename)
+
+    rep = f'<img src="{photo_path}", alt="{cap}"/>"\n'
     if use_figcaption and len(cap) > 0:
         rep += f"<figcaption>{cap}</figcaption>\n"
     return rep
