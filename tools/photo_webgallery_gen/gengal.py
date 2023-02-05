@@ -70,7 +70,8 @@ def gengal():
                 if os.path.isfile(expected_thumbnail_file):
                     thumbnail = expected_thumbnail_file
                 else:
-                    print(f"No thumbnail with ending '{imglink_thumb_match}' found for full image file {img} (checked for '{expected_thumbnail_file}').")
+                    print(f"WARNING: No thumbnail with ending '{imglink_thumb_match}' found for full image file {img} (checked for '{expected_thumbnail_file}'). Ignoring file '{img}'.")
+                    continue
             out_str += gen_file_html(img, photo_caps, force_path=forcepath, thumbnail=thumbnail)
         else:
             if verbose:
